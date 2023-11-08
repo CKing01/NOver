@@ -20,6 +20,8 @@ def ask_ai(request):
     x=api.objects.filter(api_key=str(data_api))
     if not x.exists():
         return HttpResponse("Unauthorized access")
+    if x[0].No_use==0:
+        return HttpResponse("Excide the No of Use.Buy New credits ")
     try:
         response = g4f.ChatCompletion.create(
             model="gpt-3.5-turbo",
@@ -34,6 +36,6 @@ def ask_ai(request):
         m=x[0]
         m.No_use=int(m.No_use)-1
         m.save()
-        return JsonResponse(output_data)
+        return JsonResponse(output_data ,safe=False)
     except:
         return JsonResponse({"Error":"Cannot Access the Gpt api backend."})
