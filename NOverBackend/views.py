@@ -20,7 +20,7 @@ def ask_ai(request):
     x=api.objects.filter(api_key=str(data_api))
     if not x.exists():
         return HttpResponse("Unauthorized access")
-    if x[0].No_use==0:
+    if x[0].No_use=0:
         return HttpResponse("Excide the No of Use.Buy New credits ")
     try:
         response = g4f.ChatCompletion.create(
