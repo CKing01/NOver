@@ -20,20 +20,20 @@ def ask_ai(request):
     x=api.objects.filter(api_key=str(data_api)).exists()
     if not x:
         return HttpResponse("Unauthorized access")
-    try:
-        response = g4f.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": data}],
-            stream=True,
-        )
-        output_data=""
-        for message in response:
-            output_data+=message
-        m1=asked_Ai.objects.create(api=x[0],question=data,answer=output_data)
-        m1.save()
-        m=x[0]
-        m.No_use=int(m.No_use)-1
-        m.save()
-        return JsonResponse(output_data)
-    except:
-        return JsonResponse({"Error":"Cannot Access the Gpt api backend."})
+    # try:
+    response = g4f.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": data}],
+        stream=True,
+    )
+    output_data=""
+    for message in response:
+        output_data+=message
+    m1=asked_Ai.objects.create(api=x[0],question=data,answer=output_data)
+    m1.save()
+    m=x[0]
+    m.No_use=int(m.No_use)-1
+    m.save()
+    return JsonResponse(output_data)
+    # except:
+    #     return JsonResponse({"Error":"Cannot Access the Gpt api backend."})
