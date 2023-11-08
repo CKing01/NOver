@@ -1,3 +1,3 @@
 import os
 os.system("ls")
-os.system("pwd")
+os.system("gunicorn wmain.py")
