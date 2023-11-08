@@ -1,4 +1,4 @@
 import os
-os.system("ls")
-os.system("pwd")
+os.system("python3 manage.py makemigrations")
+os.system("python3 manage.py migrate")
 os.system("gunicorn NOverBackend.wsgi")
